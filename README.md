@@ -83,7 +83,7 @@ The following code snippet demonstrates how to configure the plugin through the 
         'seneca-logtrans-plugin' : {
             filterFun: function(logEntry) { return _.includes(['act'], logEntry.kind) },
             processFun: function(logEntry) { log.push(logEntry); printLogEntry(logEntry) }
-        }
+        },
         // Controls what to be forwarded to the adapter function
         log: {
             basic: "any"

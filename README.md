@@ -6,8 +6,12 @@
 
 This is an internal plugin to transform and process log entries of seneca instances.
 
+The plugin is based on the `custom_logger` example, given to the seneca itself.
+
 The purpose of this plugin to gain direct control of the logging of seneca, in order to better understand, how it is working.
 This plugin also provide a naive but efficient way to control what and how to print out during development and debugging.
+
+Note: This plugin is tested with [seneca v3.2.2](https://github.com/senecajs/seneca/tree/v3.2.2)
 
 ## Prerequisites
 
@@ -29,7 +33,6 @@ To obtain coverage, run:
 
 ## Usage
 
-The plugin is based on the `custom_logger` example, given to the seneca itself. 
 It is preloaded during the initialization of the seneca instance, and can be configured directly through the instance options.
 
 It has an `adapter()` function, which gets every log entry that is enabled to be processed (see the log config parameters of the instance).
@@ -69,7 +72,7 @@ The default options of the plugin:
     }
 ```
 
-So, in case none of the functions are defined, then the plugin simply prints out each log entry by default.
+So, in case none of the functions are defined the plugin simply prints out each log entry by default.
 
 The following code snippet demonstrates how to configure the plugin through the seneca instance:
 

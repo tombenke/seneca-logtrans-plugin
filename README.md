@@ -32,7 +32,7 @@ To obtain coverage, run:
 The plugin is based on the `custom_logger` example, given to the seneca itself. 
 It is preloaded during the initialization of the seneca instance, and can be configured directly through the instance options.
 
-It has an `adapter()` function, whic gets every log entry that is enabled to processed (see the log config parameters of the instance).
+It has an `adapter()` function, which gets every log entry that is enabled to be processed (see the log config parameters of the instance).
 
 The adapter does three simple things:
 
@@ -41,7 +41,7 @@ The adapter does three simple things:
 2. If the `filterFun` is defined, then calls it with the normalized log entry as a parameter.
    If this function returns with `false`, then finishes the processing of the log entry. if `true`, then continues with step 3.
 3. If the `processFun` is defined, then calls it with the normalized log entry.
-   The use can define within this function, what to do with the log entry (print, save, etc.).
+   This function defines actually what to do with the log entry (print, save, etc.).
 
 To load the plugin:
 
@@ -69,32 +69,32 @@ The default options of the plugin:
     }
 ```
 
-So, in case none of the functions are defined, then the plugin simply prints out each log entry.
+So, in case none of the functions are defined, then the plugin simply prints out each log entry by default.
 
 The following code snippet demonstrates how to configure the plugin through the seneca instance:
 
 ```JavaScript
     seneca({
-    internal: {
-        // Loads the plugin
-        logger: 'seneca-logtrans-plugin'
-    },
-    // Controls what to be forwarded to the adapter function
-    test: true,
-    log: {
-        basic: "any"
-    },
-    // These are the direct options of the plugin 
-    'seneca-logtrans-plugin' : {
+        internal: {
+            // Loads the plugin
+            logger: 'seneca-logtrans-plugin'
+        },
+        // These are the direct options of the plugin 
+        'seneca-logtrans-plugin' : {
             filterFun: function(logEntry) { return _.includes(['act'], logEntry.kind) },
             processFun: function(logEntry) { log.push(logEntry); printLogEntry(logEntry) }
         }
-    )
+        // Controls what to be forwarded to the adapter function
+        log: {
+            basic: "any"
+        }
+    })
 ```
 
 ### Actions
 
 The plugin provides no action.
+
 
 ## References
 

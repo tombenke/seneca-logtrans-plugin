@@ -77,10 +77,13 @@ So, in case none of the functions are defined the plugin simply prints out each 
 The following code snippet demonstrates how to configure the plugin through the seneca instance:
 
 ```JavaScript
+    const senecaLogTrans = require('seneca-logtrans-plugin')
+    const _ = require('lodash')
+    
     seneca({
         internal: {
             // Loads the plugin
-            logger: 'seneca-logtrans-plugin'
+            logger: senecaLogTrans
         },
         // These are the direct options of the plugin 
         'seneca-logtrans-plugin' : {

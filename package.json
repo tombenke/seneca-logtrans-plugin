@@ -1,7 +1,7 @@
 {
   "name": "seneca-logtrans-plugin",
   "description": "internal plugin to transform and process log entries of seneca instances.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "tags": [
     "seneca",
     "plugin",

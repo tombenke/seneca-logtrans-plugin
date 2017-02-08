@@ -26,19 +26,20 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "seneca": "^3.x.x"
+    "seneca": "^3.3.x"
   },
   "devDependencies": {
-    "eslint": "^3.10.2",
     "chai": "^3.5.0",
-    "cross-env": "^2.x.x",
-    "mocha": "^2.x.x",
     "coveralls": "^2.11.15",
-    "mocha-lcov-reporter": "^1.2.0",
-    "istanbul": "1.0.0-alpha.2"
+    "cross-env": "^2.x.x",
+    "eslint": "^3.10.2",
+    "istanbul": "1.0.0-alpha.2",
+    "js-yaml": "^3.8.1",
+    "mocha": "^2.x.x",
+    "mocha-lcov-reporter": "^1.2.0"
   },
   "scripts": {
-    "lint": "eslint lib/**",
+    "lint": "eslint lib/** examples/**",
     "test": "cross-env NODE_ENV=test mocha --recursive 'lib/**/*.spec.js'",
     "test:watch": "npm test -- --watch",
     "coverage": "NODE_ENV=test istanbul cover _mocha -- recursive --timeout 15000 'lib/**/*.spec.js'",

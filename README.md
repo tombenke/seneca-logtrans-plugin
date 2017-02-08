@@ -40,7 +40,14 @@ It has an `adapter()` function, which gets every log entry that is enabled to be
 The adapter does three simple things:
 
 1. Converts the user defined log entries into a normalized format, that is:
-   `{ kind: 'user', when: <timestamp>, level: <log-level>, payload: <the user defined content> }`
+```JavaScript
+   {
+        kind: 'user',
+        when: <timestamp>,
+        level: <log-level>,
+        payload: <the user defined content>
+   }
+   ```
 2. If the `filterFun` is defined, then calls it with the normalized log entry as a parameter.
    If this function returns with `false`, then finishes the processing of the log entry. if `true`, then continues with step 3.
 3. If the `processFun` is defined, then calls it with the normalized log entry.
@@ -49,10 +56,11 @@ The adapter does three simple things:
 To load the plugin:
 
 This is an internal plugin, so do not load it via the `seneca.use()` function.
-Instead, define parameters for this via the options of the `seneca` instance, using its plugin name, that is `seneca-logtrans-plugin`.
+Instead, define parameters for this via the options of the `seneca` instance, using the `internal.logger` property,
+as you can see in the example below.
 
-See the [lib/index.spec.js](lib/index.spec.js) unit tests as an example how to configure the plugin, and how to define simple functions
-to filter and process the log entries.
+See the [lib/index.spec.js](lib/index.spec.js) unit tests or the [examples/logPropStats.js](examples/logPropStats.js)
+as an examples that demonstrate how to configure the plugin, and how to define simple functions to filter and process the log entries.
 
 ### Options
 
@@ -65,7 +73,7 @@ The plugin has two optional configuration parameters:
    It gets the log entry as a parameter, and does whatever it wants with that.
 
 The default options of the plugin:
-```JavaScript:
+```JavaScript
     {
         filterFun: function(logEntry) { return true },
         processFun: function(logEntry) { console.log(logEntry) }
@@ -95,6 +103,73 @@ The following code snippet demonstrates how to configure the plugin through the 
             basic: "any"
         }
     })
+```
+
+You can find some examples under the [`examples`](examples) folder.
+
+The [`examples/logPropStats.js`](examples/logPropStats.js) example script prints out a table to show the properties
+that are carried together with a specific `kind` of log entry.
+
+The result shows that the possible values of the `kind` property of the log entry are: `act` | `add` | `notice` | `options` | `plugin` `user`.
+The rows visualize which log entry property can exist accompanied with a specified `kind`.
+
+```bash
+    node examples/logPropStats.js
+
+                act       add       notice    options   plugin    user      
+    actid        +                             +         +                  
+    caller       +                                                          
+    callpoint              +                   +         +                  
+    case         +         +                   +         +                  
+    client       +                                                          
+    duration     +                                                          
+    entry        +                                                          
+    exports                                              +                  
+    gate         +                                                          
+    id                     +                                                
+    kind         +         +         +         +         +         +        
+    level        +         +         +         +         +         +        
+    listen       +                                                          
+    meta         +                                                          
+    msg          +                                                          
+    name                   +                             +                  
+    notice                           +                                      
+    options                          +         +         +                  
+    pattern      +         +                   +         +                  
+    payload                                                        +        
+    plugin_name  +         +                   +         +                  
+    plugin_tag   +         +                   +         +                  
+    prior        +                                                          
+    result       +                                                          
+    seneca       +         +         +         +         +         +        
+    tag                                                  +                  
+    transport    +                                                          
+    when         +         +         +         +         +         +
+```
+
+The [`examples/logPropStats.js`](examples/logPropStats.js) example demonstrates how to filter and format the seneca log
+to make the whole process easier to follow. The configuration is placed into the [`examples/logCfgs.js`](examples/logCfgs.js) file.
+
+```bash
+    node examples/logFormatter.js
+
+    [-/transport/-] act     IN      name:transport,plugin:define,role:seneca,seq:1,tag:undefined
+    msg:
+        name: transport
+        plugin: define
+        role: seneca
+        seq: 1
+
+    _________________________________________
+
+    [-/transport/-] act     DEFAULT name:transport,plugin:define,role:seneca,seq:1,tag:undefined
+    msg:
+        init: transport
+
+    _________________________________________
+
+
+    ...
 ```
 
 ### Actions
